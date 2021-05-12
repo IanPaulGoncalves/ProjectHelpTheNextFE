@@ -6,27 +6,34 @@ import React from 'react';
 const useStyles = makeStyles({
   root: {
     padding: 16,
-    width: 250
+    width: '25%',
+    maxHeight: 255
   }
 });
 
 const tags = [
-  { id: 1, name: 'Teste' },
-  { id: 2, name: 'Tes' },
-  { id: 3, name: 'Test' },
-  { id: 4, name: 'T' }
+  { id: 1, name: 'React', link: 'https://sfiabvua' },
+  { id: 2, name: 'TypeScript', link: 'https://bdrszvsz' },
+  { id: 3, name: 'Angular', link: 'https://brdbdbbr' },
+  { id: 4, name: 'JavaScript', link: 'https://davsdvsv' }
 ];
 
 function NavBar() {
   const classes = useStyles();
 
+  function handleClickItem(tag: any) {
+    if (tag) {
+      return;
+    }
+  }
+
   return (
     <Paper className={classes.root}>
-      <ListSubheader>Barrinha de navegação</ListSubheader>
+      <ListSubheader>Tags mais pesquisadas</ListSubheader>
       {
         tags.map(item => (
           <ListItem dense button key={item.id}>
-            <ListItemText primary={`#${item.name}`} />
+            <ListItemText key={item.id} primary={`#${item.name}`} onClick={() => handleClickItem(item)} />
           </ListItem>
         ))
       }

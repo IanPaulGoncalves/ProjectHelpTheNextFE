@@ -1,6 +1,6 @@
 import {
   ThemeProvider
-} from '@material-ui/core/styles/';
+} from '@material-ui/core/styles';
 import React from 'react';
 import Home from './pages/Home/Home';
 import theme from './theme/index';

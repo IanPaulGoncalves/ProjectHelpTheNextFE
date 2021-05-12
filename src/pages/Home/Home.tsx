@@ -23,13 +23,14 @@ const useStyles = makeStyles({
 
 function Home() {
   const classes = useStyles();
+
   return (
     <div className={classes.root}>
       <Header />
       <div className={classes.toolbar} />
       <main className={classes.main}>
         <Container maxWidth="lg">
-          <Box display="flex">
+          <Box display="flex" width="100%">
             <NavBar />
             <Feed />
           </Box>
