@@ -13,7 +13,7 @@ const useStyles = makeStyles({
     width: '75%',
     padding: 16,
     marginLeft: 10,
-    '@media(max-width: 600px)': {
+    '@media(max-width: 700px)': {
       width: '100%',
       marginLeft: 0,
       marginBottom: 10
@@ -78,7 +78,7 @@ function Feed() {
               </div>
             </div>
             <Divider style={{ margin: 5 }} />
-            <Link style={{ fontSize: 18 }} href="#" onClick={preventDefault}>
+            <Link style={{ fontSize: 18 }} href="#/app" onClick={preventDefault}>
               Aqui vai ficar alguma pergunta sobre um tipo específico.
               Aqui vai ficar alguma pergunta sobre um tipo específico.
               Aqui vai ficar alguma pergunta sobre um tipo específico.

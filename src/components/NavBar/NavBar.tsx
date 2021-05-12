@@ -8,7 +8,7 @@ const useStyles = makeStyles({
     padding: 16,
     width: '25%',
     maxHeight: 255,
-    '@media(max-width: 600px)': {
+    '@media(max-width: 700px)': {
       width: '100%',
       marginBottom: 10
     }
