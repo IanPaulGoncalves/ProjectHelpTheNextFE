@@ -12,7 +12,12 @@ const useStyles = makeStyles({
   root: {
     width: '75%',
     padding: 16,
-    marginLeft: 10
+    marginLeft: 10,
+    '@media(max-width: 600px)': {
+      width: '100%',
+      marginLeft: 0,
+      marginBottom: 10
+    }
   },
   containerPost: {
     display: 'flex',

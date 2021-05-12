@@ -7,7 +7,11 @@ const useStyles = makeStyles({
   root: {
     padding: 16,
     width: '25%',
-    maxHeight: 255
+    maxHeight: 255,
+    '@media(max-width: 600px)': {
+      width: '100%',
+      marginBottom: 10
+    }
   }
 });
 
@@ -29,7 +33,7 @@ function NavBar() {
 
   return (
     <Paper className={classes.root}>
-      <ListSubheader>Tags mais pesquisadas</ListSubheader>
+      <ListSubheader>Tags</ListSubheader>
       {
         tags.map(item => (
           <ListItem dense button key={item.id}>

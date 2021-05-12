@@ -17,6 +17,13 @@ const useStyles = makeStyles({
   },
   toolbar: {
     minHeight: 64
+  },
+  containerBox: {
+    display: 'flex',
+    width: '100%',
+    '@media(max-width: 600px)': {
+      flexDirection: 'column'
+    }
   }
 });
 
@@ -30,7 +37,7 @@ function Home() {
       <div className={classes.toolbar} />
       <main className={classes.main}>
         <Container maxWidth="lg">
-          <Box display="flex" width="100%">
+          <Box className={classes.containerBox}>
             <NavBar />
             <Feed />
           </Box>
