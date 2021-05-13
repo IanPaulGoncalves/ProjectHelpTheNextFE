@@ -43,7 +43,7 @@ const useStyles = makeStyles({
     padding: 0,
     display: 'flex',
     alignItems: 'center',
-    width: 400
+    width: '30%'
   },
   input: {
     marginLeft: 10,
@@ -69,6 +69,8 @@ function Header() {
     setAuth(event.target.checked);
   };
 
+  const login = () => (auth === false && setAuth(true));
+
   const handleMenuNotification = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorNotification(event.currentTarget);
   };
@@ -83,6 +85,7 @@ function Header() {
 
   const handleCloseAccount = () => {
     setAnchorAccount(null);
+    setAuth(false);
   };
 
   const renderHeader: any = (props: Props) => (
@@ -91,7 +94,7 @@ function Header() {
       <HideOnScroll {...props}>
         <AppBar color="inherit" style={{ background: '#2c387e' }}>
           <Toolbar className={classes.root}>
-            <div style={{ color: '#fff' }}>
+            <div style={{ color: '#fff', width: '30%' }}>
               <span>Barra de notificação</span>
             </div>
             <Paper component="form" className={classes.containerSearch}>
@@ -105,7 +108,7 @@ function Header() {
               </IconButton>
             </Paper>
             {auth ? (
-              <div style={{ display: 'flex' }}>
+              <div style={{ display: 'flex', justifyContent: 'flex-end', width: '30%' }}>
                 <div>
                   <IconButton
                     aria-label="show 17 new notifications"
@@ -173,14 +176,16 @@ function Header() {
                 </div>
               </div>
             ) : (
-              <div>
+              <div style={{ display: 'flex', justifyContent: 'flex-end', width: '30%' }}>
                 <Button
                   variant="contained"
                   color="default"
                   className={classes.button}
-                  startIcon={<AccountCircle />}
+                  startIcon={<AccountCircle style={{ color: 'rgb(44, 56, 126)' }} />}
+                  onClick={login}
+                  style={{ background: '#fff' }}
                 >
-                  <span>Entrar</span>
+                  <span style={{ color: 'rgba(0, 0, 0, 0.54)' }}>Entrar</span>
                 </Button>
               </div>
             )}
