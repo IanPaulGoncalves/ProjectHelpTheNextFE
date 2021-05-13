@@ -74,7 +74,11 @@ function PostCard(props: Props) {
           </span>
         </div>
       </div>
-      <Divider style={{ margin: 16 }} />
+      <Divider style={{
+        marginTop: 15,
+        marginBottom: 10
+      }}
+      />
     </div>
   );
 }
