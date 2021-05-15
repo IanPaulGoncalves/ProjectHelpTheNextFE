@@ -55,17 +55,17 @@ const post = [
     tags: [
       {
         id: 1,
-        tag: '#Java',
+        tag: '#Futebol',
         link: 'https://scshvbisbv'
       },
       {
         id: 2,
-        tag: '#Python',
+        tag: '#Bruxo',
         link: 'https://ssbcusbwcw'
       },
       {
         id: 3,
-        tag: '#Ruby',
+        tag: '#Brasileiro',
         link: 'https://scsuyabciu'
       }
     ]
