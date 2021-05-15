@@ -112,7 +112,12 @@ function PostCard(props: Props) {
               <span>Tags:</span>
               {props.tag.map((item: any) => (
                 <span style={{ marginLeft: 10 }}>
-                  <Link style={{ fontSize: 14 }} href="#/app" onClick={preventDefault}>
+                  <Link
+                    key={item.id}
+                    style={{ fontSize: 14 }}
+                    href={item.link}
+                    onClick={preventDefault}
+                  >
                     {item.tag}
                   </Link>
                 </span>
