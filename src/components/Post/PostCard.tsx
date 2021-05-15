@@ -1,6 +1,9 @@
 import Avatar from '@material-ui/core/Avatar';
+import CardActions from '@material-ui/core/CardActions';
 import Divider from '@material-ui/core/Divider';
+import IconButton from '@material-ui/core/IconButton';
 import Link from '@material-ui/core/Link';
+import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer';
@@ -22,6 +25,16 @@ const useStyles = makeStyles({
     flexDirection: 'column',
     alignItems: 'center',
     marginRight: 10
+  },
+  cardAction: {
+    display: 'flex',
+    padding: 5,
+    alignItems: 'center'
+  },
+  containderAction: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center'
   }
 });
 
@@ -33,6 +46,7 @@ interface Props {
   description: string;
   comment: number;
   like: number;
+  tag: Array<object>;
 }
 
 function PostCard(props: Props) {
@@ -40,13 +54,25 @@ function PostCard(props: Props) {
   const preventDefault = (event: React.SyntheticEvent) => event.preventDefault();
 
   return (
-    <div>
+    <Paper style={{ padding: 10, marginBottom: 10 }}>
       <div className={classes.containerPost}>
         <div className={classes.containerResponse}>
-          <ThumbUpAltIcon style={{ color: '#bdbdbd' }} />
-          <span>{props.like}</span>
-          <QuestionAnswerIcon style={{ color: '#bdbdbd' }} />
-          <span>{props.comment}</span>
+          <CardActions className={classes.cardAction}>
+            <div className={classes.containderAction}>
+              <IconButton aria-label="like" style={{ padding: 4 }}>
+                <ThumbUpAltIcon style={{ color: '#bdbdbd' }} />
+              </IconButton>
+              <Typography color="textSecondary" variant="body2">{props.like}</Typography>
+            </div>
+          </CardActions>
+          <CardActions className={classes.cardAction}>
+            <div className={classes.containderAction}>
+              <IconButton aria-label="comment" style={{ padding: 4 }}>
+                <QuestionAnswerIcon style={{ color: '#bdbdbd' }} />
+              </IconButton>
+              <Typography color="textSecondary" variant="body2">{props.comment}</Typography>
+            </div>
+          </CardActions>
         </div>
         <div style={{
           display: 'flex', flexDirection: 'column', width: '100%'
@@ -79,7 +105,22 @@ function PostCard(props: Props) {
         marginBottom: 10
       }}
       />
-    </div>
+      <div>
+        {props.tag !== undefined && props.tag.length > 0
+          ? (
+            <>
+              <span>Tags:</span>
+              {props.tag.map((item: any) => (
+                <span style={{ marginLeft: 10 }}>
+                  <Link style={{ fontSize: 14 }} href="#/app" onClick={preventDefault}>
+                    {item.tag}
+                  </Link>
+                </span>
+              ))}
+            </>
+          ) : ''}
+      </div>
+    </Paper>
   );
 }
 
