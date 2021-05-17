@@ -115,7 +115,7 @@ function PostCard(props: Props) {
                   <Link
                     key={item.id}
                     style={{ fontSize: 14 }}
-                    href={item.link}
+                    href={`#/${item.link}`}
                     onClick={preventDefault}
                   >
                     {item.tag}
