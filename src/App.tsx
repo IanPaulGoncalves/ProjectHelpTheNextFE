@@ -3,6 +3,7 @@ import {
 } from '@material-ui/core/styles';
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import './mock';
 import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
 import theme from './theme/index';
