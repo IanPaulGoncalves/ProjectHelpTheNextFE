@@ -46,7 +46,10 @@
       "strict":"off",
       "react/destructuring-assignment": "off",
       "react/jsx-props-no-spreading": "off",
-      "no-unused-vars":"off"
+      "no-unused-vars":"off",
+      "no-debugger":"off",
+      "jsx-a11y/anchor-is-valid": 0,
+      "react/prop-types": 0
     },
     "settings": {
       "import/resolver": {
