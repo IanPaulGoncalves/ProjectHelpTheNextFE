@@ -14,7 +14,8 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import SearchIcon from '@material-ui/icons/Search';
 import React from 'react';
-
+import { useNavigate } from 'react-router-dom';
+import { isAuthenticated, resetLogin } from '../../../../services/authService';
 
 interface Props {
   // eslint-disable-next-line react/require-default-props
@@ -58,17 +59,21 @@ const useStyles = makeStyles({
 
 function Header() {
   const classes = useStyles();
-  const [auth, setAuth] = React.useState(false);
+  const navigate = useNavigate();
+  const authenticated = isAuthenticated();
   const [anchorNotification, setAnchorNotification] = React.useState<null | HTMLElement>(null);
   const openNotification = Boolean(anchorNotification);
   const [anchorAccount, setAnchorAccount] = React.useState<null | HTMLElement>(null);
   const openAccount = Boolean(anchorAccount);
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setAuth(event.target.checked);
-  };
+  function login() {
+    return !authenticated && navigate('/login');
+  }
 
-  const login = () => (auth === false && setAuth(true));
+  function logout() {
+    resetLogin();
+    handleCloseAccount();
+  }
 
   const handleMenuNotification = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorNotification(event.currentTarget);
@@ -84,7 +89,6 @@ function Header() {
 
   const handleCloseAccount = () => {
     setAnchorAccount(null);
-    setAuth(false);
   };
 
   const renderHeader: any = (props: Props) => (
@@ -104,7 +108,7 @@ function Header() {
               <SearchIcon />
             </IconButton>
           </Paper>
-          {auth ? (
+          {authenticated ? (
             <div style={{ display: 'flex', justifyContent: 'flex-end', width: '30%' }}>
               <div>
                 <IconButton
@@ -169,6 +173,7 @@ function Header() {
                 >
                   <MenuItem onClick={handleCloseAccount}>Profile</MenuItem>
                   <MenuItem onClick={handleCloseAccount}>My account</MenuItem>
+                  <MenuItem onClick={logout}>Sair</MenuItem>
                 </Menu>
               </div>
             </div>
