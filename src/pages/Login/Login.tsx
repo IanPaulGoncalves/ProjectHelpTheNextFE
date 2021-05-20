@@ -14,6 +14,7 @@ import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import VpnKeyIcon from '@material-ui/icons/VpnKey';
 import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
+import _ from 'lodash';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { login } from '../../services/authService';
@@ -42,9 +43,9 @@ const useStyle = makeStyles({
 function Login() {
   const classes = useStyle();
   const [showPassword, setPassword] = useState(false);
-  const [state, setState] = useState({
-    email: '',
-    password: { value: '', showPassword: false },
+  const [showState, setState] = useState({
+    email: { value: '', error: false },
+    password: { value: '', showPassword: false, error: false },
     errorMessage: ''
   });
   const [open, setOpen] = React.useState(false);
@@ -68,21 +69,25 @@ function Login() {
 
   function handleChangePassword(event: any) {
     const password = event.target.value;
-    setState({ ...state, password: { value: password, showPassword: password !== '' && true } });
+    setValueState('password', {
+      ...showState.password, value: password, showPassword: password !== '' && true, error: false
+    });
   }
 
   function handleChangeEmail(event: any) {
     const email = event.target.value;
-    setState({ ...state, email });
+    setValueState('email', { ...showState.email, value: email, error: false });
   }
 
   async function handleLogin() {
-    try {
-      await login(state.email, state.password.value);
-      navigate('/');
-    } catch (error) {
-      setState({ ...state, errorMessage: error.response.data.message });
-      setOpen(true);
+    if (validateError()) {
+      try {
+        await login(showState.email.value, showState.password.value);
+        navigate('/');
+      } catch (error) {
+        setState({ ...showState, errorMessage: error.response.data.message });
+        setOpen(true);
+      }
     }
   }
 
@@ -91,6 +96,26 @@ function Login() {
   }
 
   const { vertical, horizontal }: any = { vertical: 'top', horizontal: 'center' };
+
+  function setValueState(name: string, value: any) {
+    setState(state => ({
+      ...state,
+      [name]: value
+    }));
+  }
+
+  function validateError() {
+    let validate: boolean = true;
+    if (_.isEmpty(showState.email.value)) {
+      setValueState('email', { ...showState.email, error: true });
+      validate = false;
+    }
+    if (_.isEmpty(showState.password.value)) {
+      setValueState('password', { ...showState.password, error: true });
+      validate = false;
+    }
+    return validate;
+  }
 
   return (
     <div className={classes.root}>
@@ -101,7 +126,7 @@ function Login() {
         anchorOrigin={{ vertical, horizontal }}
       >
         <Alert onClose={handleClose} severity="warning">
-          {state.errorMessage}
+          {showState.errorMessage}
         </Alert>
       </Snackbar>
       <Paper style={{ width: 380, height: 380 }}>
@@ -129,7 +154,8 @@ function Login() {
               <Grid item xs={12} md={12} lg={12}>
                 <TextField
                   onChange={handleChangeEmail}
-                  value={state.email}
+                  value={showState.email.value}
+                  error={showState.email.error}
                   variant="outlined"
                   margin="normal"
                   required
@@ -141,7 +167,7 @@ function Login() {
                 />
               </Grid>
               <Grid item xs={12} md={12} lg={12}>
-                <FormControl variant="outlined" fullWidth>
+                <FormControl variant="outlined" fullWidth required error={showState.password.error}>
                   <InputLabel
                     htmlFor="outlined-adornment-password"
                   >
@@ -151,8 +177,8 @@ function Login() {
                     id="outlined-adornment-password"
                     type={showPassword ? 'text' : 'password'}
                     onChange={handleChangePassword}
-                    value={state.password.value}
-                    endAdornment={state.password.showPassword && (
+                    value={showState.password.value}
+                    endAdornment={showState.password.showPassword && (
                       <InputAdornment position="end">
                         <IconButton
                           aria-label="toggle password visibility"
