@@ -23,8 +23,8 @@ const post = [
     time: '20:00',
     question: 'Aqui vai ficar a pergunda. Aqui vai ficar a pergunda?',
     description: 'Descrição da pergunta. Descrição da pergunta. Descrição da pergunta. Descrição da pergunta.',
-    likes: 5,
-    comment: 10,
+    likes: 60,
+    comment: 20,
     tags: [
       {
         id: 1,
@@ -50,7 +50,7 @@ const post = [
     time: '20:15',
     question: 'Aqui vai ficar a pergunda. Aqui vai ficar a pergunda?',
     description: 'Descrição da pergunta. Descrição da pergunta. Descrição da pergunta. Descrição da pergunta.',
-    likes: 5,
+    likes: 51,
     comment: 10,
     tags: [
       {
