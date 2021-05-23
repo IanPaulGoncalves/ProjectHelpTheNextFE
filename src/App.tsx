@@ -4,6 +4,7 @@ import {
 import React from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Auth from './components/Auth/Auth';
 import './mock';
 import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
@@ -16,11 +17,13 @@ function App() {
     <Provider store={index}>
       <ThemeProvider theme={theme}>
         <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <PrivateRoute path="/login" element={<Login />} />
-            <Route path="*" element={<h1>Página não encontrada :(</h1>} />
-          </Routes>
+          <Auth>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <PrivateRoute path="/login" element={<Login />} />
+              <Route path="*" element={<h1>Página não encontrada :(</h1>} />
+            </Routes>
+          </Auth>
         </BrowserRouter>
       </ThemeProvider>
     </Provider>

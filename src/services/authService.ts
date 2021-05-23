@@ -1,20 +1,19 @@
 import axios from '../utils/axios';
 
-export function setUser(user: any) {
-  localStorage.setItem('user', JSON.stringify(user));
+export function setToken(token: any) {
+  localStorage.setItem('accessToken', token);
 }
 
-export function getUser() {
-  const user = localStorage.getItem('user');
-  return user;
+export function getToken() {
+  return localStorage.getItem('accessToken');
 }
 
 export function isAuthenticated() {
-  return !!getUser();
+  return !!getToken();
 }
 
 export function resetLogin() {
-  localStorage.setItem('user', '');
+  localStorage.setItem('accessToken', '');
   window.location.reload();
 }
 
@@ -24,7 +23,25 @@ export function loginAuth(email: string, password: string) {
       .post('/api/home/login', { email, password })
       .then(response => {
         if (response.data.user) {
-          setUser(response.data.user);
+          setToken('JWT');
+          resolve(response.data.user);
+        } else {
+          resolve(response.data.error);
+        }
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
+}
+
+export function loginAuthToken() {
+  return new Promise((resolve, reject) => {
+    axios
+      .post('/api/home/me')
+      .then(response => {
+        if (response.data.user) {
+          setToken('JWT');
           resolve(response.data.user);
         } else {
           resolve(response.data.error);

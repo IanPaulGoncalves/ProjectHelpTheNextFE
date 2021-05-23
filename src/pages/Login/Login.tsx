@@ -16,9 +16,9 @@ import VpnKeyIcon from '@material-ui/icons/VpnKey';
 import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
 import _ from 'lodash';
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import login from '../../reducers/account/actions';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { login } from '../../reducers/account/actions';
 
 const useStyle = makeStyles({
   root: {
@@ -51,9 +51,9 @@ function Login() {
   });
   const [open, setOpen] = React.useState(false);
 
-  const account = useSelector(state => state);
+  const account = useAppSelector(state => state.account);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
     if (reason === 'clickaway') {
