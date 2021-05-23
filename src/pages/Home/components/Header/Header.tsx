@@ -15,7 +15,8 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import SearchIcon from '@material-ui/icons/Search';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { isAuthenticated, resetLogin } from '../../../../services/authService';
+import { useAppSelector } from '../../../../app/hooks';
+import { resetLogin } from '../../../../services/authService';
 
 interface Props {
   // eslint-disable-next-line react/require-default-props
@@ -60,11 +61,13 @@ const useStyles = makeStyles({
 function Header() {
   const classes = useStyles();
   const navigate = useNavigate();
-  const authenticated = isAuthenticated();
   const [anchorNotification, setAnchorNotification] = React.useState<null | HTMLElement>(null);
   const openNotification = Boolean(anchorNotification);
   const [anchorAccount, setAnchorAccount] = React.useState<null | HTMLElement>(null);
   const openAccount = Boolean(anchorAccount);
+
+  const account = useAppSelector(state => state.account);
+  const authenticated = Boolean(account.user);
 
   function login() {
     return !authenticated && navigate('/login');

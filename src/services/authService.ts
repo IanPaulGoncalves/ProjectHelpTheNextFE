@@ -18,7 +18,7 @@ export function resetLogin() {
   window.location.reload();
 }
 
-export function login(email: string, password: string) {
+export function loginAuth(email: string, password: string) {
   return new Promise((resolve, reject) => {
     axios
       .post('/api/home/login', { email, password })
