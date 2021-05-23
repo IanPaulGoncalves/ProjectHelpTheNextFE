@@ -2,9 +2,10 @@ import { Box, Container } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
 import '../../components/Styles/style.css';
-import Feed from './components/Feed/Feed';
+import { Route, Routes } from 'react-router-dom';
+import Feed from '../Feed';
 import Header from './components/Header/Header';
-import NavBar from './components/NavBar/NavBar';
+
 
 const useStyles = makeStyles({
   root: {
@@ -38,8 +39,11 @@ function Home() {
       <main className={classes.main}>
         <Container maxWidth="lg">
           <Box className={classes.containerBox}>
-            <NavBar />
-            <Feed />
+            <Routes>
+              <Route path="/" element={<Feed />} />
+              <Route path="/feed" element={<Feed />} />
+              <Route path="*" element={<h1>Página não encontrada :(</h1>} />
+            </Routes>
           </Box>
         </Container>
       </main>

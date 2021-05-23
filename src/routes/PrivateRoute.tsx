@@ -1,10 +1,11 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
+import { useAppSelector } from '../app/hooks';
 import Home from '../pages/Home/Home';
-import { isAuthenticated } from '../services/authService';
 
 const PrivateRoute = ({ element: Component, ...rest }: any) => {
-  const auth = isAuthenticated();
+  const account = useAppSelector(state => state.account);
+  const auth = Boolean(account.user);
   return (
     <Route
       {...rest}
