@@ -237,13 +237,22 @@ function Header() {
     return (
       <Grid container>
         <Grid item xs={12} md={12} lg={12}>
+          <div>
+            <span>Pergunta:</span>
+          </div>
           <textarea
+            className="textareastyled"
+            rows={1}
             id="test"
           />
         </Grid>
         <Grid item xs={12} md={12} lg={12}>
+          <div>
+            <span>Descrição:</span>
+          </div>
           <textarea
-            id="test"
+            className="textareastyled"
+            rows={7}
           />
         </Grid>
       </Grid>
