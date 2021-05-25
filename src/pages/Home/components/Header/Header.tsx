@@ -44,11 +44,43 @@ const useStyles = makeStyles({
     display: 'flex',
     justifyContent: 'space-between'
   },
+  containerMain: {
+    display: 'flex',
+    width: '100%',
+    justifyContent: 'space-between',
+    flexWrap: 'wrap'
+  },
+  containerBar: {
+    order: 1,
+    display: 'flex',
+    alignItems: 'center',
+    color: '#fff'
+  },
+  containerMainSearch: {
+    display: 'flex',
+    order: 2,
+    alignItems: 'center',
+    '@media(max-width: 720px)': {
+      width: '100%',
+      justifyContent: 'center',
+      margin: 10
+    }
+  },
   containerSearch: {
     padding: 0,
     display: 'flex',
     alignItems: 'center',
-    height: 40
+    height: 40,
+    '@media(max-width: 720px)': {
+      width: '100%'
+    }
+  },
+  containerAction: {
+    order: 3,
+    display: 'flex',
+    '@media(max-width: 720px)': {
+      order: 1
+    }
   },
   input: {
     marginLeft: 10,
@@ -110,17 +142,11 @@ function Header() {
     <HideOnScroll {...props}>
       <AppBar color="inherit" style={{ background: '#2c387e' }}>
         <Toolbar className={classes.root}>
-          <div style={{
-            display: 'flex', width: '100%', justifyContent: 'space-between', flexWrap: 'wrap'
-          }}
-          >
-            <div style={{ display: 'flex', alignItems: 'center', color: '#fff' }}>
-              <span>Barra de notificação</span>
+          <div className={classes.containerMain}>
+            <div className={classes.containerBar}>
+              <span>Barra de navegação</span>
             </div>
-            <div style={{
-              display: 'flex', alignItems: 'center'
-            }}
-            >
+            <div className={classes.containerMainSearch}>
               <Paper component="form" className={classes.containerSearch}>
                 <InputBase
                   className={classes.input}
@@ -133,7 +159,7 @@ function Header() {
               </Paper>
             </div>
             {authenticated ? (
-              <div style={{ display: 'flex' }}>
+              <div className={classes.containerAction}>
                 <div>
                   <Button
                     variant="contained"
@@ -214,7 +240,7 @@ function Header() {
                 </div>
               </div>
             ) : (
-              <div>
+              <div style={{ order: 4 }}>
                 <Button
                   variant="contained"
                   color="default"

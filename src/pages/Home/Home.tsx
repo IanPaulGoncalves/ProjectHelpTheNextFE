@@ -5,6 +5,7 @@ import '../../components/Styles/style.css';
 import { Route, Routes } from 'react-router-dom';
 import Feed from '../Feed';
 import Header from './components/Header/Header';
+import NavBar from '../Feed/NavBar';
 
 
 const useStyles = makeStyles({
@@ -39,9 +40,22 @@ function Home() {
       <main className={classes.main}>
         <Container maxWidth="lg">
           <Box className={classes.containerBox}>
+            <NavBar />
             <Routes>
               <Route path="/" element={<Feed />} />
               <Route path="/feed" element={<Feed />} />
+              <Route
+                path="/search/*"
+                element={(
+                  <div style={{
+                    width: '75%',
+                    marginLeft: 10
+                  }}
+                  >
+                    <h1>Aqui ficaram as tags</h1>
+                  </div>
+                )}
+              />
               <Route path="*" element={<h1>Página não encontrada :(</h1>} />
             </Routes>
           </Box>
