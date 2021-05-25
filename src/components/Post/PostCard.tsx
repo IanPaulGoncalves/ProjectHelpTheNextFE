@@ -47,6 +47,7 @@ interface Props {
   comment: number;
   like: number;
   tag: Array<object>;
+  onClick: any;
 }
 
 function PostCard(props: Props) {
@@ -92,7 +93,7 @@ function PostCard(props: Props) {
             </div>
           </div>
           <Divider style={{ margin: 5 }} />
-          <Link style={{ fontSize: 18 }} href="#/app" onClick={preventDefault}>
+          <Link style={{ fontSize: 18 }} href="#/app" onClick={props.onClick}>
             {props.question}
           </Link>
           <span>

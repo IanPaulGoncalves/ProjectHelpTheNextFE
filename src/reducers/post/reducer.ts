@@ -1,7 +1,8 @@
-import { GET_POST } from './actions';
+import { GET_POST, GET_POST_DETAIL } from './actions';
 
 const INITIAL_STATE = {
-  post: undefined
+  post: undefined,
+  postFilter: undefined
 };
 
 function postReducer(state = INITIAL_STATE, action) {
@@ -10,6 +11,12 @@ function postReducer(state = INITIAL_STATE, action) {
       return {
         ...state,
         post: action.payload.post
+      };
+    }
+    case GET_POST_DETAIL: {
+      return {
+        ...state,
+        postFilter: action.payload.postFilter
       };
     }
     default: {

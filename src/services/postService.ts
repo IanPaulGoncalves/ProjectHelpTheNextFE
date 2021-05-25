@@ -17,3 +17,20 @@ export function getPostsService() {
       });
   });
 }
+
+export function getPostsDetailService(id: number) {
+  return new Promise((resolve, reject) => {
+    axios
+      .post('/api/home/postdetail', { id })
+      .then(response => {
+        if (response.data.postFilter) {
+          resolve(response.data.postFilter);
+        } else {
+          resolve(response.data.postFilter);
+        }
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
+}

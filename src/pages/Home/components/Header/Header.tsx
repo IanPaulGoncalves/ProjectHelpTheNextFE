@@ -243,7 +243,6 @@ function Header() {
           <textarea
             className="textareastyled"
             rows={1}
-            id="test"
           />
         </Grid>
         <Grid item xs={12} md={12} lg={12}>
