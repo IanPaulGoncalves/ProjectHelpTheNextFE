@@ -39,7 +39,7 @@
       ],
       "arrow-parens": ["error", "as-needed"],
       "comma-dangle": ["error", "never"],
-      "linebreak-style": ["error", "windows"],
+      "linebreak-style": 0,
       "eol-last":"off",
       "no-useless-return":"off",
       "no-multiple-empty-lines":"off",
