@@ -47,16 +47,17 @@ interface Props {
   comment: number;
   like: number;
   tag: Array<object>;
-  onClick: any;
+  onClick?: any;
+  type?: string;
 }
 
 function PostCard(props: Props) {
   const classes = useStyles();
-  const preventDefault = (event: React.SyntheticEvent) => event.preventDefault();
 
   return (
     <Paper style={{ padding: 10, marginBottom: 10 }}>
       <div className={classes.containerPost}>
+        {props.type === 'feed' && (
         <div className={classes.containerResponse}>
           <CardActions className={classes.cardAction}>
             <div className={classes.containderAction}>
@@ -75,6 +76,7 @@ function PostCard(props: Props) {
             </div>
           </CardActions>
         </div>
+        )}
         <div style={{
           display: 'flex', flexDirection: 'column', width: '100%'
         }}
@@ -93,9 +95,16 @@ function PostCard(props: Props) {
             </div>
           </div>
           <Divider style={{ margin: 5 }} />
-          <Link style={{ fontSize: 18 }} href="#/app" onClick={props.onClick}>
-            {props.question}
-          </Link>
+          {props.type === 'feed'
+            ? (
+              <Link style={{ fontSize: 18, cursor: 'pointer' }} onClick={props.onClick}>
+                {props.question}
+              </Link>
+            ) : (
+              <span style={{ fontSize: 18 }}>
+                {props.question}
+              </span>
+            )}
           <span>
             {props.description}
           </span>
@@ -116,8 +125,7 @@ function PostCard(props: Props) {
                   <Link
                     key={item.id}
                     style={{ fontSize: 14 }}
-                    href={`#/${item.link}`}
-                    onClick={preventDefault}
+                    href={`/search/${item.link}`}
                   >
                     {item.tag}
                   </Link>

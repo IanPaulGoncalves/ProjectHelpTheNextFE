@@ -13,14 +13,16 @@ import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import SearchIcon from '@material-ui/icons/Search';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CreateIcon from '@material-ui/icons/Create';
 import Grid from '@material-ui/core/Grid';
 import Input from '@material-ui/core/Input';
+import TextField from '@material-ui/core/TextField';
 import { useAppSelector } from '../../../../app/hooks';
 import { resetLogin } from '../../../../services/authService';
 import Modal from '../../../../components/Modal/Modal';
+import MultValues from '../../../../components/MultValues/MultValues';
 
 interface Props {
   // eslint-disable-next-line react/require-default-props
@@ -43,6 +45,7 @@ const useStyles = makeStyles({
   root: {
     display: 'flex',
     justifyContent: 'space-between'
+
   },
   containerMain: {
     display: 'flex',
@@ -52,15 +55,16 @@ const useStyles = makeStyles({
   },
   containerBar: {
     order: 1,
+    background: 'url(/assets/navbar/logo_navbar.png) no-repeat 0px 5px',
     display: 'flex',
     alignItems: 'center',
-    color: '#fff'
+    width: 240
   },
   containerMainSearch: {
     display: 'flex',
     order: 2,
     alignItems: 'center',
-    '@media(max-width: 720px)': {
+    '@media(max-width: 820px)': {
       width: '100%',
       justifyContent: 'center',
       margin: 10
@@ -71,14 +75,14 @@ const useStyles = makeStyles({
     display: 'flex',
     alignItems: 'center',
     height: 40,
-    '@media(max-width: 720px)': {
+    '@media(max-width: 820px)': {
       width: '100%'
     }
   },
   containerAction: {
     order: 3,
     display: 'flex',
-    '@media(max-width: 720px)': {
+    '@media(max-width: 820px)': {
       order: 1
     }
   },
@@ -101,7 +105,19 @@ function Header() {
   const openNotification = Boolean(anchorNotification);
   const [anchorAccount, setAnchorAccount] = React.useState<null | HTMLElement>(null);
   const openAccount = Boolean(anchorAccount);
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [showState, setState] = useState({
+    question: '',
+    description: '',
+    tags: []
+  });
+
+  function setValueState(name: string, value: any) {
+    setState(state => ({
+      ...state,
+      [name]: value
+    }));
+  }
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -138,22 +154,38 @@ function Header() {
     setAnchorAccount(null);
   };
 
+  const handleChangeQuestion = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setValueState('question', event.target.value);
+  };
+
+  const handleChangeDescription = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setValueState('description', event.target.value);
+  };
+
+  const handleChangeTags = (tags: any) => {
+    setValueState('tags', tags);
+  };
+
   const renderHeader: any = (props: Props) => (
     <HideOnScroll {...props}>
       <AppBar color="inherit" style={{ background: '#2c387e' }}>
         <Toolbar className={classes.root}>
           <div className={classes.containerMain}>
             <div className={classes.containerBar}>
-              <span>Barra de navegação</span>
+              {/* <img
+                style={{ margin: 0 }}
+                src="/assets/navbar/logo_navbar.png"
+                alt="logo"
+              /> */}
             </div>
             <div className={classes.containerMainSearch}>
-              <Paper component="form" className={classes.containerSearch}>
+              <Paper className={classes.containerSearch}>
                 <InputBase
                   className={classes.input}
                   placeholder="Pesquise por algo"
                   inputProps={{ 'aria-label': 'search google maps' }}
                 />
-                <IconButton type="submit" className={classes.iconButton} aria-label="search">
+                <IconButton href="/search" className={classes.iconButton} aria-label="search">
                   <SearchIcon />
                 </IconButton>
               </Paper>
@@ -174,13 +206,13 @@ function Header() {
                 </div>
                 <div>
                   <IconButton
-                    aria-label="show 17 new notifications"
+                    aria-label="show 1 new notifications"
                     color="inherit"
                     aria-controls="menu-notifications"
                     aria-haspopup="true"
                     onClick={handleMenuNotification}
                   >
-                    <Badge badgeContent={17} color="secondary">
+                    <Badge badgeContent={1} color="secondary">
                       <NotificationsIcon style={{ color: '#fff' }} />
                     </Badge>
                   </IconButton>
@@ -240,7 +272,7 @@ function Header() {
                 </div>
               </div>
             ) : (
-              <div style={{ order: 4 }}>
+              <div className={classes.containerAction}>
                 <Button
                   variant="contained"
                   color="default"
@@ -261,28 +293,51 @@ function Header() {
 
   function containerModal() {
     return (
-      <Grid container>
+      <Grid container spacing={2}>
         <Grid item xs={12} md={12} lg={12}>
-          <div>
-            <span>Pergunta:</span>
-          </div>
-          <textarea
-            className="textareastyled"
+          <TextField
+            id="id-question-modal-header"
+            label="Pergunta"
+            multiline
             rows={1}
+            value={showState.question}
+            onChange={handleChangeQuestion}
+            variant="outlined"
+            fullWidth
           />
         </Grid>
         <Grid item xs={12} md={12} lg={12}>
-          <div>
-            <span>Descrição:</span>
-          </div>
-          <textarea
-            className="textareastyled"
+          <TextField
+            id="id-description-modal-header"
+            label="Descrição"
+            multiline
             rows={7}
+            value={showState.description}
+            onChange={handleChangeDescription}
+            variant="outlined"
+            fullWidth
+          />
+        </Grid>
+        <Grid item xs={12} md={12} lg={12}>
+          <MultValues
+            id="id-tags-modal-header"
+            options={top100Films}
+            label="Tags"
+            onChange={handleChangeTags}
+            value={showState.tags}
           />
         </Grid>
       </Grid>
     );
   }
+
+  const top100Films = [
+    { key: 1994, value: '#React' },
+    { key: 1972, value: '#TypeScript' },
+    { key: 1974, value: '#C++' },
+    { key: 2008, value: '#Python' },
+    { key: 1957, value: '#Java' }
+  ];
 
   return (
     <>

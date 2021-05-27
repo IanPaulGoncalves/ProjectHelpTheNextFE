@@ -8,8 +8,9 @@ const useStyles = makeStyles({
   root: {
     padding: 16,
     width: '25%',
-    maxHeight: 350,
+    maxHeight: 420,
     '@media(max-width: 700px)': {
+      marginTop: 40,
       width: '100%',
       marginBottom: 10
     }
@@ -36,8 +37,18 @@ function NavBar() {
     }
   }
 
+  function handleClickItemFeed(link: any) {
+    if (link) {
+      navigate(`${link}`);
+    }
+  }
+
   return (
     <Paper className={classes.root}>
+      <ListSubheader>Menu</ListSubheader>
+      <ListItem dense button key={1}>
+        <ListItemText key={1} primary="Feed" onClick={event => handleClickItemFeed('/')} />
+      </ListItem>
       <ListSubheader>Tags</ListSubheader>
       {
         tags.map(item => (
