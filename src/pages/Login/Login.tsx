@@ -83,6 +83,8 @@ function Login() {
     setValueState('email', { ...showState.email, value: email, error: false });
   }
 
+  const preventDefault = (event: React.SyntheticEvent) => event.preventDefault();
+
   async function handleLogin() {
     if (validateError()) {
       try {
@@ -154,7 +156,7 @@ function Login() {
             </span>
           </Grid>
           <Grid item xs={12}>
-            <form>
+            <form onClickCapture={preventDefault}>
               <Grid item xs={12} md={12} lg={12}>
                 <TextField
                   onChange={handleChangeEmail}
@@ -199,7 +201,7 @@ function Login() {
                 </FormControl>
               </Grid>
               <Grid item xs={12} md={12} lg={12} style={{ paddingTop: 10 }}>
-                <Button fullWidth variant="contained" color="primary" onClick={handleLogin}>
+                <Button type="submit" fullWidth variant="contained" color="primary" onClick={handleLogin}>
                   Entrar
                 </Button>
               </Grid>

@@ -25,6 +25,7 @@ const styles = (theme: Theme) => createStyles({
 });
 
 export interface Props {
+  id?: string;
   onClick: any,
   onClose: any,
   open: boolean,
@@ -69,7 +70,7 @@ const DialogActions = withStyles((theme: Theme) => ({
 
 export default function Modal(props: Props) {
   return (
-    <div>
+    <div id={props.id}>
       <Dialog onClose={props.onClose} aria-labelledby="customized-dialog-title" open={props.open}>
         <DialogTitle id="customized-dialog-title" onClose={props.onClose}>
           {props.title}
