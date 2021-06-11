@@ -4,8 +4,7 @@ import {
 import React from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Auth from './components/Auth/Auth';
-import './mock';
+// import './mock';
 import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
 import PrivateRoute from './routes/PrivateRoute';
@@ -17,12 +16,10 @@ function App() {
     <Provider store={index}>
       <ThemeProvider theme={theme}>
         <BrowserRouter>
-          <Auth>
-            <Routes>
-              <PrivateRoute path="/login" element={<Login />} />
-              <Route path="//*" element={<Home />} />
-            </Routes>
-          </Auth>
+          <Routes>
+            <PrivateRoute path="/login" element={<Login />} />
+            <Route path="//*" element={<Home />} />
+          </Routes>
         </BrowserRouter>
       </ThemeProvider>
     </Provider>

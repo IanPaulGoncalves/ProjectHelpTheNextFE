@@ -1,7 +1,13 @@
 import axios from '../utils/axios';
 
 export function setToken(token: any) {
-  localStorage.setItem('accessToken', token);
+  if (token) {
+    localStorage.setItem('accessToken', token);
+    axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+  } else {
+    localStorage.removeItem('token');
+    delete axios.defaults.headers.common.Authorization;
+  }
 }
 
 export function getToken() {
@@ -13,35 +19,17 @@ export function isAuthenticated() {
 }
 
 export function resetLogin() {
-  localStorage.setItem('accessToken', '');
+  localStorage.removeItem('accessToken');
   window.location.reload();
 }
 
 export function loginAuth(email: string, password: string) {
   return new Promise((resolve, reject) => {
     axios
-      .post('/api/home/login', { email, password })
+      .post('/v1/auth/login', { email, password })
       .then(response => {
         if (response.data.user) {
-          setToken('JWT');
-          resolve(response.data.user);
-        } else {
-          resolve(response.data.error);
-        }
-      })
-      .catch(error => {
-        reject(error);
-      });
-  });
-}
-
-export function loginAuthToken() {
-  return new Promise((resolve, reject) => {
-    axios
-      .post('/api/home/me')
-      .then(response => {
-        if (response.data.user) {
-          setToken('JWT');
+          setToken(response.data.token);
           resolve(response.data.user);
         } else {
           resolve(response.data.error);

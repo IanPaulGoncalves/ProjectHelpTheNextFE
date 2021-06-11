@@ -20,7 +20,7 @@ import Grid from '@material-ui/core/Grid';
 import Input from '@material-ui/core/Input';
 import TextField from '@material-ui/core/TextField';
 import { useAppSelector } from '../../../../app/hooks';
-import { resetLogin } from '../../../../services/authService';
+import { isAuthenticated, resetLogin } from '../../../../services/authService';
 import Modal from '../../../../components/Modal/Modal';
 import MultValues from '../../../../components/MultValues/MultValues';
 
@@ -190,7 +190,7 @@ function Header() {
                 </IconButton>
               </Paper>
             </div>
-            {authenticated ? (
+            {isAuthenticated() ? (
               <div className={classes.containerAction}>
                 <div>
                   <Button
